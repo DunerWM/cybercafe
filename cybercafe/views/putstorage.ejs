@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品入库</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/putstorage.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/reset.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/base.css">
+</head>
+<body>
+	<div class="suc-note display_n">
+		<span>商品添加成功！</span>
+		<span>继续添加</span>
+		<span>查看商品</span>
+	</div>
+	<div class="topbar">
+		<ul>
+			<li>
+				<i class="icon-home"></i>
+				<a href="#">首页</a>
+			</li>
+			<li class="nav-step">商品</li>
+			<li class="nav-step">商品入库</li>
+		</ul>
+	</div>
+	<div class="main">
+		<div class="nav">
+			<div class="nav-first active" data-target="content-first">入库已有商品</div>
+			<div class="nac-second" data-target="content-second">入库新商品</div>
+		</div>
+		<div class="content">
+			<div class="content-first active">
+				<form name="storeForm" id="storeForm">
+					<div>
+						<label>选择商品分类：</label>
+						<select class="selectItem" name="item">
+							<option>选择商品类别</option>
+							<% for(var i = 0; i < item.length; i++){ %>
+							<option><%= item[i].item %></option>
+							<% } %>
+						</select>
+						<select class="selectMerchant display_n" name="merchant">
+						</select>
+						<select class="goodsList display_n" name="name"></select>
+					</div>
+					<div>
+						<label>商品入库数量：</label>
+						<input type='text' name="count">
+					</div>
+					<div>
+						<label>成本单价：</label>
+						<input type="number" name="price" class="price">
+					</div>
+					<div>
+						<label>售价：</label>
+						<input type="number" name="sellprice" class="sellprice">
+					</div>
+					<div>
+						<label>供应商：</label>
+						<input type='text' name="supplyer" class="supplyer">
+					</div>
+					<div>
+						<label>供应商联系方式：</label>
+						<input type="text" name="supplyPhone" class="supplyPhone">
+					</div>
+					<div>
+						<a href="javascript:;" id="doSubmit">提交</a>
+					</div>
+				</form>
+			</div>
+			<div class="content-second">
+				<form name="newstoreForm" id="newstoreForm"enctype="multipart/form-data">
+					<div>
+						<label>选择商品分类：</label>
+						<select class="newselectItem" name="item">
+							<option>选择商品类别</option>
+							<% for(var i = 0; i < item.length; i++){ %>
+							<option><%= item[i].item %></option>
+							<% } %>
+						</select>
+						<select class="newselectMerchant display_n" name="merchant"></select>
+						<a href="javascript:;" title="添加新商家" class="linkaddMerchant display_n">添加新商家</a>
+						<span class="display_n inputaddMerchant">
+							<input type="text" name="newcomeMerchant" class="newcomeMerchant">
+							<a href="javascript:;" id="newcomeMerchant">添加</a>
+						</span>
+					</div>
+					<div>
+						<label>商品名称：</label>
+						<input type="text" name="name">
+					</div>
+					<div>
+						<label>商品入库数量：</label>
+						<input type='text' name="count">
+					</div>
+					<div>
+						<label>成本单价：</label>
+						<input type="number" name="price">
+					</div>
+					<div>
+						<label>售价：</label>
+						<input type="number" name="sellprice">
+					</div>
+					<div>
+						<label>供应商：</label>
+						<input type='text' name="supplyer">
+					</div>
+					<div>
+						<label>供应商联系方式：</label>
+						<input type="text" name="supplyPhone">
+					</div>
+					<div>
+						<label>商品图片：</label>
+						<input type="file" name="img">
+					</div>
+					<div>
+						<a href="javascript:;" id="donewSubmit">提交</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/javascripts/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".nav div").click(function(){
+				var target = $(this).attr("data-target");
+				$(".nav div").removeClass("active");
+				$(this).addClass("active");
+				$(".content>div").removeClass("active");
+				$("."+target).addClass("active");
+			});
+			//添加已有商品
+			$(".selectItem").on('change',function() {
+				$.ajax({
+			    	type: "get",
+			    	url: "/doputstorage",
+			    	dataType:'json',
+			    	data: {item:$('.selectItem').val()},
+			    	success: function(data){
+			    		if(data.status){
+			    			$(".selectMerchant").removeClass("display_n");
+			    			$(".selectMerchant").empty();
+			    			var optionFirst = '<option>商家选择</option>';
+			    			$(".selectMerchant").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].child+'</option>';
+			    				$(".selectMerchant").append(option);
+			    			}
+			    		}
+			    	},
+			    	error: function(){
+			    		//
+			   		}
+			    });
+			})
+			$(".selectMerchant").on('change',function() {
+				$.ajax({
+					type:'get',
+					url:"/getgoods",
+					datatype:'json',
+					data:{item:$('.selectItem').val(),merchant:$(".selectMerchant").val()},
+					success:function(data){
+						if(data.status){
+							$(".goodsList").removeClass("display_n");
+			    			$(".goodsList").empty();
+			    			var optionFirst = '<option>商品选择</option>';
+			    			$(".goodsList").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].name+'</option>';
+			    				$(".goodsList").append(option);
+			    			}
+						}
+					}
+				});
+			});
+			$(".goodsList").on('change',function() {
+				$.ajax({
+					type:'get',
+					url:'/getinfor',
+					datatype:'json',
+					data:{item:$('.selectItem').val(),merchant:$(".selectMerchant").val(),name:$(this).val()},
+					success:function(data){
+						if(data.status){
+							console.log(data.status[0]);
+							$(".price").val(data.status[0].price);
+							$(".sellprice").val(data.status[0].sellprice);
+							$(".supplyer").val(data.status[0].supplyer);
+							$(".supplyPhone").val(data.status[0].supplyPhone);
+						}
+					}
+				})
+			})
+			$("#doSubmit").click(function() {
+				$.ajax({
+					type:'post',
+					url:'/instore',
+					datatype:'json',
+					data:$("#storeForm").serialize(),
+					success:function(data) {
+						if(data.status == 'ok'){
+							console.log("ok");
+							$(".suc-note").show();
+						}
+						else{
+							console.log("err");
+						}
+					}
+				})
+			});
+
+			//添加新商品
+			$(".newselectItem").on('change',function() {
+				$.ajax({
+			    	type: "get",
+			    	url: "/doputstorage",
+			    	dataType:'json',
+			    	data: {item:$('.newselectItem').val()},
+			    	success: function(data){
+			    		if(data.status){
+			    			$(".newselectMerchant").removeClass("display_n");
+			    			$(".linkaddMerchant").removeClass("display_n");
+			    			$(".newselectMerchant").empty();
+			    			var optionFirst = '<option>商家选择</option>';
+			    			$(".newselectMerchant").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].child+'</option>';
+			    				$(".newselectMerchant").append(option);
+			    			}
+			    		}
+			    	},
+			    	error: function(){
+			    		//
+			   		}
+			    });
+			})
+
+			$(".newselectMerchant").on('change',function() {
+				$(".linkaddMerchant").addClass("display_n");
+			});
+			$(".linkaddMerchant").click(function() {
+				$(this).addClass("display_n");
+				$(".inputaddMerchant").removeClass("display_n");
+			});
+			$("#newcomeMerchant").click(function() {
+				$.ajax({
+					type:'post',
+					url:'/addonlyMerchant',
+					datatype:'json',
+					data:{item:$('.newselectItem').val(),merchant:$(".newcomeMerchant").val()},
+					success:function(data) {
+						if(data.status){
+							$(".newselectMerchant").empty();
+			    			var optionFirst = '<option>商家选择</option>';
+			    			$(".newselectMerchant").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].child+'</option>';
+			    				$(".newselectMerchant").append(option);
+			    			}
+			    			$(".newselectMerchant").val(data.status[data.status.length-1].child);
+						}
+					},
+					err:function() {
+						//
+					}
+				});
+				$(".inputaddMerchant").addClass("display_n");
+			});
+			$("#donewSubmit").click(function() {
+				var formContent = document.getElementById("newstoreForm")
+				var formdata = new FormData(formContent);
+				$.ajax({
+					type:'post',
+					url:'/addnewgoods',
+					datatype:'json',
+					contentType:false,
+					processData:false,
+					data:formdata,
+					success:function(data) {
+						if(data.status == 'ok') {
+
+						}
+					}
+				})
+			});
+		});
+	</script>
+</body>
+</html>

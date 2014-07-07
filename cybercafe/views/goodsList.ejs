@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品列表</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/reset.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/base.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- basic styles -->
+
+	<link href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+
+	<link rel="stylesheet" href="/stylesheets/ace.min.css" />
+	<link rel="stylesheet" href="/stylesheets/ace-rtl.min.css" />
+	<link rel="stylesheet" href="/stylesheets/ace-skins.min.css" />
+	<style type="text/css">
+		.row{
+			padding-left: 20px;
+		}
+	</style>
+
+	<script src="/javascripts/ace-extra.min.js"></script>
+</head>
+<body>
+	<div class="topbar">
+		<ul>
+			<li>
+				<i class="icon-home"></i>
+				<a href="#">首页</a>
+			</li>
+			<li class="nav-step">商品</li>
+			<li class="nav-step">商品管理</li>
+		</ul>
+	</div>
+	<div class="table-responsive">
+		<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th class="center">
+						<label>
+							<input type="checkbox" class="ace" />
+							<span class="lbl"></span>
+						</label>
+					</th>
+					<th>商品名称</th>
+					<th>商家名称</th>
+					<th>剩余数量</th>
+					<th>库存数量</th>
+					<th class="hidden-480">价格</th>
+					<th>管理</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% for(var i = 0; i < data.length; i++) {%>
+				<tr>
+					<td class="center">
+						<label>
+							<input type="checkbox" class="ace" />
+							<span class="lbl"></span>
+						</label>
+					</td>
+					<td>
+						<a href="#"><%= data[i].name %></a>
+					</td>
+					<td><%= data[i].merchant %></td>
+					<td><%= data[i].count %></td>
+					<td>100</td>
+					<td><%= data[i].price %></td>
+					<td>
+						<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+							<a class="green" href="addad.html">
+								<i class="icon-pencil bigger-130"></i>
+							</a>
+							<a class="red" href="#">
+								<i class="icon-trash bigger-130"></i>
+							</a>
+						</div>
+						<div class="visible-xs visible-sm hidden-md hidden-lg">
+							<div class="inline position-relative">
+								<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+									<i class="icon-caret-down icon-only bigger-120"></i>
+								</button>
+
+								<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+
+									<li>
+										<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+											<span class="green">
+												<i class="icon-edit bigger-120"></i>
+											</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+											<span class="red">
+												<i class="icon-trash bigger-120"></i>
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<%}%>
+
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
+		window.jQuery || document.write("<script src='/javascripts/jquery-2.0.3.min.js'>"+"<"+"/script>");
+	</script>
+	<script type="text/javascript">
+		if("ontouchend" in document) document.write("<script src='/javascripts/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+	</script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="/javascripts/typeahead-bs2.min.js"></script>
+
+	<!-- page specific plugin scripts -->
+
+	<script src="/javascripts/jquery.dataTables.min.js"></script>
+	<script src="/javascripts/jquery.dataTables.bootstrap.js"></script>
+
+	<!-- ace scripts -->
+
+	<script src="/javascripts/ace-elements.min.js"></script>
+	<script src="/javascripts/ace.min.js"></script>
+
+	<!-- inline scripts related to this page -->
+
+	<script type="text/javascript">
+		jQuery(function($) {
+			var oTable1 = $('#sample-table-2').dataTable( {
+			"aoColumns": [
+		      { "bSortable": false },
+		      null, null,null, null, null,
+			  { "bSortable": false }
+			] } );
+			
+			
+			$('table th input:checkbox').on('click' , function(){
+				var that = this;
+				$(this).closest('table').find('tr > td:first-child input:checkbox')
+				.each(function(){
+					this.checked = that.checked;
+					$(this).closest('tr').toggleClass('selected');
+				});
+					
+			});
+		
+		
+			$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('table')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+		
+				var off2 = $source.offset();
+				var w2 = $source.width();
+		
+				if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+				return 'left';
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商品添加</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/reset.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/base.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/addgoods.css">
+</head>
+<body>
+	<div class="topbar">
+		<ul>
+			<li>
+				<i class="icon-home"></i>
+				<a href="#">首页</a>
+			</li>
+			<li class="nav-step">商品</li>
+			<li class="nav-step">商品添加</li>
+		</ul>
+	</div>
+	<div class="content">
+		<form name="addgoodsForm" id="addgoodsForm">
+			<div>
+				<label>选择商品分类：</label>
+				<select class="selectItem" name="item">
+					<option>选择商品类别</option>
+					<% for(var i = 0; i < item.length; i++){ %>
+					<option><%= item[i].item %></option>
+					<% } %>
+				</select>
+				<select class="selectMerchant display_n" name="merchant">
+				</select>
+				<select class="goodsList display_n" name="name"></select>
+			</div>
+			<div>
+				<label>添加商品数量：</label>
+				<input type='text' name="count">
+				<span class="countInstore display_n">库存剩余：
+					<span></span>
+				</span>
+			</div>
+			<div>
+				<a href="javascript:;" id="doSubmit">提交</a>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="/javascripts/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".selectItem").on('change',function() {
+				$.ajax({
+			    	type: "get",
+			    	url: "/doputstorage",
+			    	dataType:'json',
+			    	data: {item:$('.selectItem').val()},
+			    	success: function(data){
+			    		if(data.status){
+			    			$(".selectMerchant").removeClass("display_n");
+			    			$(".selectMerchant").empty();
+			    			var optionFirst = '<option>商家选择</option>';
+			    			$(".selectMerchant").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].child+'</option>';
+			    				$(".selectMerchant").append(option);
+			    			}
+			    		}
+			    	},
+			    	error: function(){
+			    		//
+			   		}
+			    });
+			})
+			$(".selectMerchant").on('change',function() {
+				$.ajax({
+					type:'get',
+					url:"/getgoods",
+					datatype:'json',
+					data:{item:$('.selectItem').val(),merchant:$(".selectMerchant").val()},
+					success:function(data){
+						if(data.status){
+							$(".goodsList").removeClass("display_n");
+			    			$(".goodsList").empty();
+			    			var optionFirst = '<option>商品选择</option>';
+			    			$(".goodsList").append(optionFirst);
+			    			for(var i = 0; i < data.status.length; i++){
+			    				var option = '<option>'+data.status[i].name+'</option>';
+			    				$(".goodsList").append(option);
+			    			}
+						}
+					}
+				});
+			});
+			$(".goodsList").change(function() {
+				$.ajax({
+					type:'get',
+					url:'/checkCount',
+					datatype:'json',
+					data:{merchant:$(".selectMerchant").val(),name:$(this).val()},
+					success:function(data) {
+						if(data.status){
+							$(".countInstore").removeClass("display_n");
+							$(".countInstore>span").html(data.status[0].count);
+						}
+					},
+					error:function(){
+						//
+					}
+				});
+			});
+			
+			$("#doSubmit").click(function() {
+				$.ajax({
+					type:'post',
+					url:'/addgoods',
+					datatype:'json',
+					data:$("#addgoodsForm").serialize(),
+					success:function(data) {
+						if(data.status == 'ok'){
+							console.log("ok");
+						}
+						else{
+							console.log("err");
+						}
+					},
+					error:function(){
+
+					}
+				})
+			});
+		});
+	</script>
+</body>
+</html>

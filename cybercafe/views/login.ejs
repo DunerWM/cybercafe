@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>管理员后台登陆</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- basic styles -->
+		<link href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="/stylesheets/font-awesome.min.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="/stylesheets/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!-- fonts -->
+
+		<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="/stylesheets/ace.min.css" />
+		<link rel="stylesheet" href="/stylesheets/ace-rtl.min.css" />
+		<style type="text/css">
+		html,body{
+			height: 100%;
+		}
+			.banner{
+				height: 100%;
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.banner>div>img{
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			.main-container{
+				position: absolute;
+				left: 50%;
+				top: 0;
+				margin-left: -202px;
+				margin-top: 100px;
+			}
+			.imgfirst{
+				display: block;
+				z-index: 999;
+			}
+		</style>
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="/stylesheets/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="login-layout">
+		<div class="banner">
+			<div class="imgsecond">
+				<img src="images/bg2.jpg">
+			</div>
+			<div class="imgfirst">
+				<img src="images/bg1.jpg">
+			</div>	
+		</div>
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container">
+							<div class="center">
+								<h1>
+									<span class="red">网吧</span>
+									<span class="white">管理员后台登陆</span>
+								</h1>
+								<h4 class="blue">&copy;duner.com.cn</h4>
+							</div>
+
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger" id="note">
+												<i class="icon-coffee green"></i>
+												请使用账号密码登录
+											</h4>
+
+											<div class="space-6"></div>
+
+											<form name="login-form" id="loginForm">
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input name="adminID" type="text" class="form-control" placeholder="用户名" />
+															<i class="icon-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input name="adminPSW" type="password" class="form-control" placeholder="密码" />
+															<i class="icon-lock"></i>
+														</span>
+													</label>
+
+													<div class="space"></div>
+
+													<div class="clearfix">
+														<label class="inline">
+															<input type="checkbox" class="ace" />
+															<span class="lbl">记住我</span>
+														</label>
+
+														<button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="adminLogin">
+															<i class="icon-key"></i>
+															登录
+														</button>
+													</div>
+
+													<div class="space-4"></div>
+												</fieldset>
+											</form>
+										</div><!-- /widget-main -->
+										<div class="toolbar clearfix">
+											<div>
+												<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
+													<i class="icon-arrow-left"></i>
+													忘记密码
+												</a>
+											</div>
+										</div>
+									</div><!-- /widget-body -->
+								</div><!-- /login-box -->
+							</div><!-- /position-relative -->
+						</div>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+			</div>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='javascripts/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+		$(document).ready(function(){
+			var shuff = function(){
+				$(".imgfirst").animate(
+					{"opacity":1},2000,function(){
+						$(this).animate({"opacity":1},2000,function(){
+							$(this).animate({"opacity":0},2000,function(){
+								$(this).animate({"opacity":0},2000,function(){
+									shuff();
+								});
+							});
+						});	
+					}
+				);
+			}
+			shuff();
+			$('#adminLogin').on('click',function() {
+				onGet();
+			});
+			function onGet(){
+			   	$.ajax({
+			    	type: "post",
+			    	url: "/login",
+			    	dataType:'json',
+			    	data: $('#loginForm').serialize(),
+			    	success: function(data){
+			    		if(data.status != 'ok'){
+			    			$("#note").html(data.status);
+				     		$("#note").removeClass('blue');
+				     		$("#note").addClass('red');
+			    		}
+			     		else{
+			     			window.location.href = '/admin';
+			     		}
+			    	},
+			    	error: function(){
+			    		//
+			   		}
+			    });
+			}
+		});
+		</script>
+</body>
+</html>

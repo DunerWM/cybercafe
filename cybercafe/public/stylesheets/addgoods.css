@@ -1,0 +1,11 @@
+.content{
+	width: 90%;
+	padding-left: 10%;
+}
+.content form>div{
+	height: 50px;
+	line-height: 50px;
+}
+.countInstore>span{
+	color: #f00;
+}

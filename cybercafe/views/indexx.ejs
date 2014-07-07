@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+</head>
+<body>
+	<div class="main">
+		<div class="topbar">
+			<div class="nav">
+				<a href="#" title="首页">首页</a>
+				<a href="#" title="优惠">优惠</a>
+				<a href="#" title="活动">活动</a>
+				<a href="#" title="我是vip">我的消费</a>
+				<a href="/login" title="管理登录" target="new">管理登录</a>
+			</div>
+		</div><!-- 顶部栏 -->
+		<div class="banner">	
+			<div class="img-container">
+				<img src="images/img1.jpg" height="400px" width="978px;">
+				<img src="images/img2.jpg" height="400px" width="978px;">
+				<img src="images/img3.jpg" height="400px" width="978px;">
+			</div>
+			<div class="display-left">
+			</div>
+			<div class="display-right"></div>
+		</div><!-- 轮播 -->
+		<!--<ul class="offsale">
+			<li class="offsale-first">
+				<div class="top-part">
+					<div>
+						<span>￥</span>5
+					</div>
+					<p>描述描述描述描述描述描述描述描述</p>
+				</div>
+				<div class="bottom-part">备注</div>
+			</li>
+			<li class="offsale-second">
+				<div class="top-part">
+					<div>
+						<span>￥</span>5
+					</div>
+					<p>描述</p>
+				</div>
+				<div class="bottom-part">备注</div>
+			</li>
+			<li class="offsale-third">
+				<div class="top-part">
+					<div>
+						<span>￥</span>5
+					</div>
+					<p>描述</p>
+				</div>
+				<div class="bottom-part">备注</div>
+			</li>
+			<li class="offsale-fourth">
+				<div class="top-part">
+					<div>
+						<span>￥</span>5
+					</div>
+					<p>描述</p>
+				</div>
+				<div class="bottom-part">备注</div>
+			</li>
+		</ul>-->
+		<div class="hotpart" style="margin-top:59px;"><!-- 热门商品 -->
+			<div class="content">
+				<div class="content-title">优惠商品</div>
+				<ul class="content-list">
+					<li>
+						<img src="images/sy.jpg" width="266" height="150">
+						<div class="info-gray">薯愿（已售：322件）</div>
+						<div class="info-price">
+							<div class="ip-dallor">￥</div>
+							<div class="ip-number">6</div>
+							<div class="ip-pandp">
+								<div class="ip-point">.9</div>
+								<div class="ip-price">原价8元</div>
+							</div>
+							<div class="buy-now">立即购买</div>
+						</div>
+					</li>
+					<li>
+						<img src="images/lm.jpg" width="266" height="150">
+						<div class="info-gray">蓝莓（已售：103件）</div>
+						<div class="info-price">
+							<div class="ip-dallor">￥</div>
+							<div class="ip-number">9</div>
+							<div class="ip-pandp">
+								<div class="ip-point">.9</div>
+								<div class="ip-price">原价15元</div>
+							</div>
+							<div class="buy-now">立即购买</div>
+						</div>
+					</li>
+					<li>
+						<img src="images/ls.jpg" width="266" height="150">
+						<div class="info-gray">乐视薯片（已售：201件）</div>
+						<div class="info-price">
+							<div class="ip-dallor">￥</div>
+							<div class="ip-number">7</div>
+							<div class="ip-pandp">
+								<div class="ip-point">.9</div>
+								<div class="ip-price">原价9元</div>
+							</div>
+							<div class="buy-now">立即购买</div>
+						</div>
+					</li>
+					<li>
+						<img src="images/bs.jpg" width="266" height="150">
+						<div class="info-gray">百事可乐（已售：201件）</div>
+						<div class="info-price">
+							<div class="ip-dallor">￥</div>
+							<div class="ip-number">3</div>
+							<div class="ip-pandp">
+								<div class="ip-point">.0</div>
+								<div class="ip-price">原价3.5元</div>
+							</div>
+							<div class="buy-now">立即购买</div>
+						</div>
+					</li>
+				</ul>
+				<div class="content-title">可口饮品</div>
+				<ul class="leisure-food">
+					<% for(var i = 0; i < doc.length; i++){ %>
+					<li>
+						<span class="tip-merchant"><%=doc[i].merchant%></span>
+						<span class="tip-name"><%=doc[i].name%></span>
+						<img src="<%- doc[i].img.replace(/\\/g,'/').replace(/^public\//, '') %>" width="200" height="112">
+						<div class="lf-price">
+							<div class="lfp-top"><span>￥</span><%= doc[i].sellprice %></div>
+							<div class="lfp-bottom">
+								<%if(doc[i].count != 0){%>
+									库存<%=doc[i].count %>
+							<%} else{%>
+								售空
+							<%}%>
+							</div>
+						</div>
+						<div class="lf-info">
+							<span class="reduce">
+								<img src="images/iconfont-jian.png">
+							</span>
+							<input type="text" name="count" value="0">
+							<span class="increase">
+								<img src="images/iconfont-jia.png">
+							</span>
+							<span class="addbtn">加入购物车</span>
+						</div>
+					</li>
+					<% } %>
+				</ul>
+				<div class="content-title">休闲食品</div>
+				<ul class="leisure-food">
+					<% for(var i = 0; i < sock.length; i++){ %>
+					<li>
+						<span class="tip-merchant"><%=sock[i].merchant%></span>
+						<span class="tip-name"><%=sock[i].name%></span>
+						<img src="<%- sock[i].img.replace(/\\/g,'/').replace(/^public\//, '') %>" width="200" height="112">
+						<div class="lf-price">
+							<div class="lfp-top"><span>￥</span><%= sock[i].sellprice %></div>
+							<div class="lfp-bottom">
+								<%if(sock[i].count != 0){%>
+									库存<%=sock[i].count %>
+							<%} else{%>
+								售空
+							<%}%>
+							</div>
+						</div>
+						<div class="lf-info">
+							<span class="reduce">
+								<img src="images/iconfont-jian.png">
+							</span>
+							<input type="text" name="count" value="0">
+							<span class="increase">
+								<img src="images/iconfont-jia.png">
+							</span>
+							<span class="addbtn">加入购物车</span>
+						</div>
+					</li>
+					<% } %>
+				</ul>
+				<div class="content-title">生活用品</div>
+				<ul class="leisure-food">
+					<% for(var i = 0; i<usage.length; i++) {%>
+					<li>
+						<span class="tip-merchant"><%=usage[i].merchant%></span>
+						<span class="tip-name"><%=usage[i].name%></span>
+						<img src="<%- usage[i].img.replace(/\\/g,'/').replace(/^public\//, '') %>" width="200" height="112">
+						<div class="lf-price">
+							<div class="lfp-top"><span>￥</span><%= usage[i].sellprice %></div>
+							<div class="lfp-bottom">
+								<%if(usage[i].count != 0){%>
+									库存<%=usage[i].count %>
+							<%} else{%>
+								售空
+							<%}%>
+							</div>
+						</div>
+						<div class="lf-info">
+							<span class="reduce">
+								<img src="images/iconfont-jian.png">
+							</span>
+							<input type="text" name="count" value="0">
+							<span class="increase">
+								<img src="images/iconfont-jia.png">
+							</span>
+							<span class="addbtn">加入购物车</span>
+						</div>
+					</li>
+					<%}%>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="shopbag">
+		<div class="sb-title">购物车(<span class="sb-length">0</span>)
+			<span class="tri-up">
+				<img src="images/iconfont-xiangshang.png">
+			</span>
+			<span class="tri-down display-n">
+				<img src="images/iconfont-xiangxia.png">
+			</span>
+		</div>
+		<div class="sb-content">
+			<ul class="sbc-list">
+			</ul>
+			<button class="order-sub">订单提交</button>
+		</div>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/javascripts/index.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var socket = io();
+			$(".reduce").click(function() {
+				var inputObj = $(this).next();
+				var countValue = parseInt(inputObj.val());
+				if(countValue === 1){
+					return false;
+				}
+				else{
+					inputObj.val(countValue - 1);
+				}
+				console.log(countValue);
+			});
+			$(".increase").click(function() {
+				var inputObj = $(this).prev();
+				var countValue = parseInt(inputObj.val());
+				var liObj = $(this).parent().parent();
+				var tipMerchant = liObj.find(".tip-merchant").html();
+				var tipName = liObj.find(".tip-name").html();
+				$.ajax({
+					type:'get',
+					url:'/paddingcount',
+					datatype:'json',
+					data:{countValue:countValue,merchant:tipMerchant,name:tipName},
+					success:function(data) {
+						if(data.status == 'ok'){
+							countValue+=1;
+							liObj.find(".lf-info>input").val(countValue);
+						}
+						else{
+							alert("该商品数量不足");
+						}
+					}
+				})
+			});
+			$(".addbtn").click(function(){
+				var inputObj = $(this).prev().prev();
+				var countValue = parseInt(inputObj.val());
+				var liObj = $(this).parent().parent();
+				var tipMerchant = liObj.find(".tip-merchant").html();
+				var tipName = liObj.find(".tip-name").html();
+				var sbContainer = [];
+				var i = 0;
+				$.ajax({
+					type:'get',
+					url:'/paddingcount',
+					datatype:'json',
+					data:{countValue:countValue,merchant:tipMerchant,name:tipName},
+					success:function(data) {
+						if(data.status == 'ok'){
+							var sbLength = $(".sbc-list>li").length;
+							sbLength+=1;
+							var sbliObj = $("<li><span class=\"sb-goods-name\"></span><span>×</span><span class=\"sb-goods-count\"></span></li>")
+							sbliObj.find(".sb-goods-name").html(tipName);
+							sbliObj.find(".sb-goods-count").html(countValue);
+							$(".sbc-list").append(sbliObj);
+							$(".sb-length").html(sbLength);
+							var obj = "{name:"+tipName+",count:"+countValue+"}";
+							sbContainer.push(obj);
+							console.log(sbContainer);
+						}
+						else{
+							alert("该商品数量不足");
+						}
+					}
+				})
+			});
+			$(".order-sub").click(function(event) {
+				event.preventDefault();
+				$.ajax({
+					type:'post',
+					url:'sendMessage',
+					datatype:'json',
+					data:{sbContainer:sbContainer},
+					success:function() {
+						//
+					}
+				});
+			});
+			$(".tri-up").click(function() {
+				$(this).addClass("display-n");
+				$(".tri-down").removeClass("display-n");
+				$(".sb-content").css("height","auto");
+			});
+			$(".tri-down").click(function() {
+				$(this).addClass("display-n");
+				$(".tri-up").removeClass("display-n");
+				$(".sb-content").css("height",0);
+			});
+		});
+	</script>
+</body>
+</html>
